@@ -9,25 +9,80 @@
           <h4>{{user.name}}</h4>
           <h6>{{user.email}}</h6>
           <h6>{{#if user.Comments.length}}{{user.Comments.length}} 已評論餐廳{{else}}沒有任何評論{{/if}}</h6>
+          <h6>{{user.FavoritedRestaurants.length}} 收藏的餐廳</h6>
+          <h6>{{user.Followings.length}} followings(追蹤者)</h6>
+          <h6>{{user.Followings.length}} followers(追隨者)</h6>
           <a href="/users/{{user.id}}/edit" class="btn btn-primary">edit</a>
         </div>
       </div>
     </div>
-    <div class="card mt-3">
-      <div class="card-header">
-        <h6>已評論餐廳</h6>
+    <div class="row mt-3">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <h6>{{user.Followings.length}} followings(追蹤者)</h6>
+          </div>
+          <div class="card-body">
+            {{#if user.Followings.length}}
+              {{#each user.Followings}}
+                <img src="{{this.image}}" class="p-1" style="width: 80px;">
+              {{/each}}
+            {{else}}
+              <h6>沒有任何追蹤者</h6>
+            {{/if}}
+          </div>
+        </div>
+        <div class="card mt-3">
+          <div class="card-header">
+            <h6>{{user.Followers.length}} followers(追隨者)</h6>
+          </div>
+          <div class="card-body">
+            {{#if user.Followers.length}}
+              {{#each user.Followers}}
+                <img src="{{this.image}}" class="p-1" style="width: 80px;">
+              {{/each}}
+            {{else}}
+              <h6>沒有任何追隨者</h6>
+            {{/if}}
+          </div>
+        </div>
       </div>
-      <div class="card-body">
-        {{#if user.Comments.length}}
-          {{#each user.Comments}}
-            <a href="/restaurants/{{this.restaurantId}}" class='text-decoration-none'>
-              <img src="{{this.Restaurant.image}}" class="p-1" style="width: 80px;">
-            </a>
-          {{/each}}
-        {{else}}
-          <h6>沒有任何評論</h6>
-        {{/if}}
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <h6>{{user.Comments.length}} 已評論餐廳</h6>
+          </div>
+          <div class="card-body">
+            {{#if user.Comments.length}}
+              {{#each user.Comments}}
+                <a href="/restaurants/{{this.restaurantId}}" class='text-decoration-none'>
+                  <img src="{{this.Restaurant.image}}" class="p-1" style="width: 80px;">
+                </a>
+              {{/each}}
+            {{else}}
+              <h6>沒有任何評論</h6>
+            {{/if}}
+          </div>
+        </div>
+        <div class="card mt-3">
+          <div class="card-header">
+            <h6>{{user.FavoritedRestaurants.length}} 收藏的餐廳</h6>
+          </div>
+          <div class="card-body">
+            {{#if user.FavoritedRestaurants.length}}
+              {{#each user.FavoritedRestaurants}}
+                <a href="/restaurants/{{this.id}}" class='text-decoration-none'>
+                  <img src="{{this.image}}" class="p-1" style="width: 80px;">
+                </a>
+              {{/each}}
+            {{else}}
+              <h6>沒有任何收藏餐廳</h6>
+            {{/if}}
+          </div>
+        </div>
       </div>
+      
     </div>
+    
   </div>
 </div>
