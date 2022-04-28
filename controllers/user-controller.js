@@ -49,18 +49,17 @@ const userController = {
     })
       .then(user => {
         user = user.toJSON()
-        // 目標：呈現一則最新的評論
-        // 用 sort 將評論從最新排到最舊
         // 用 reduce 函式判斷，一開始 init 為空陣列 []
         // 用 restaurantId 依序比對，如果是 !== 則將此則評論推進 init
-        const filteredComments = user.Comments.sort((a, b) => b.createdAt - a.createdAt)
-          .reduce((init, current) => {
-            if (init.length === 0 || init[init.length - 1].restaurantId !== current.restaurantId) {
-              init.push(current)
-            }
-            return init
-          }, [])
-        user.Comments = filteredComments
+        const filteredComments = user.Comments.sort((a, b) => a.restaurantId - b.restaurantId)
+        const result = filteredComments.reduce((init, current) => {
+          if (init.length === 0 || init[init.length - 1].restaurantId !== current.restaurantId) {
+            init.push(current)
+          }
+          return init
+        }, [])
+        console.log(result)
+        user.Comments = result
         res.render('users/profile', { user })
       })
       .catch(err => next(err))
